@@ -1,2 +1,3 @@
 # DSA-codes
-I am starting to learn dsa. so this is 23/12/2023.
+3rd semester is done now it is my intersession period and I have not taken any course so I am learning DSA now
+This is 23/12/2023.
