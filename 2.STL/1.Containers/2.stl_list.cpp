@@ -17,6 +17,13 @@ void list_learn()
     i = alvi.begin();
     cout << *i;
 
+        list<int>anas(5,10);
+    anas.emplace_front(20);
+    anas.emplace_back(30);
+
+    list<int>::iterator it=anas.begin();
+    advance(it,2);
+    anas.insert(it,100);
 
 }
 int main()
