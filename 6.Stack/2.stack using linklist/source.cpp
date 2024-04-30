@@ -82,7 +82,7 @@ alvi::~alvi()
 
 void alvi::print()
 {
-    if(isfull()==true)
+    if(isempty()==true)
     {
         throw fullstack();
     }
