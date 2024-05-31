@@ -1,6 +1,7 @@
 #ifndef HEADER_H_INCLUDED
 #define HEADER_H_INCLUDED
-
+#include<bits/stdc++.h>
+using namespace std;
 class Node{
 public:
     Node *next;
@@ -8,26 +9,22 @@ public:
     Node(int);
 };
 
-class link_list{
+class linked_list{
 private:
     Node *head;
-    int length;
-    Node *currentpos;
 public:
-    link_list();
-    ~link_list();
-    void inset_item_begin(int);
-    void insert_item_end(int);
-    void insert_item_sort(int);
-    void delete_item(int);
-    void makeempty();
-    bool isfull();
-    void getnextitem(int&);
-    void resetlist();
-    void display();
+linked_list();
+void insert_at_begin(int);
+void insert_at_pos(int,int);
+void insert_at_end(int);
 
+void delete_at_begin();
+void delete_at_pos(int);
+void delete_at_end();
+
+void insert(int);
+void delete_num(int);
+void display();
 };
-
-
 
 #endif // HEADER_H_INCLUDED
