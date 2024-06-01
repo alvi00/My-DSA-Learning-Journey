@@ -1,107 +1,164 @@
 #include "header.h"
-void Node::insert(int a)
+using namespace std;
+
+Node::Node(int a)
 {
-    Node *newNode=new Node(a);
-    Node *parent=nullptr;
-    Node *current=this;
+    data = a;
+    left = nullptr;
+    right = nullptr;
+}
 
-    while(current!=nullptr)
+BinaryTree::BinaryTree()
+{
+    root = nullptr;
+}
+
+BinaryTree::~BinaryTree()
+{
+    makeEmpty(root);
+}
+
+void BinaryTree::insert(int value)
+{
+    insert(root, value);
+}
+
+void BinaryTree::insert(Node* &root, int value)
+{
+    if (root == nullptr)
     {
-        parent=current;
-        if(current->data>a)
-        {
-            current=current->left;
-        }
-        else
-        {
-            current=current->right;
-        }
-
+        root = new Node(value);
+        return;
     }
 
-    if(parent->data>a)
+    if (value < root->data)
     {
-        parent->left=newNode;
+        insert(root->left, value);
     }
     else
     {
-        parent->right=newNode;
+        insert(root->right, value);
     }
-
 }
 
-Node *findmin(Node *root){
-    while(root->left!=nullptr){
-        root=root->left;
-    }
-    return root;
+void BinaryTree::search(int value)
+{
+    search(root, value);
 }
 
-Node* Node::deleteNode(Node *root,int k){
-    if(root==nullptr){
-        return root;
-    }
-    if(root->data>k){
-        root->left=deleteNode(root->left,k);
-    }
-    else if(root->data<k){
-        root->right=deleteNode(root->right,k);
-    }
-    else{
-        if(root->left==nullptr){
-            Node *temp=root->right;
-            delete root;
-            return temp;
+void BinaryTree::search(Node* root, int value)
+{
+    while (root != nullptr && root->data != value)
+    {
+        if (value < root->data)
+        {
+            root = root->left;
         }
-        else{
-            Node*temp=root->left;
-            delete root;
-            return temp;
-        }
-        Node *temp=findmin(root->right);
-        root->data=temp->data;
-        root->right=deleteNode(root->right,root->data);
-
-    }
-    return root;
-}
-
-
-void Node::search(Node *root,int a){
-    while(root!=nullptr &&root->data!=a){
-        if(root->data>a){
-            root=root->left;
-        }else{
-            root=root->right;
+        else
+        {
+            root = root->right;
         }
     }
 
-    if(root==nullptr){
-        cout<<"Soryy"<<endl;
+    if (root == nullptr)
+    {
+        cout << "Sorry" << endl;
     }
-    else{
-        cout<<"Yees";
+    else
+    {
+        cout << "Yes" << endl;
     }
 }
 
-void Node::print(Node *root){
-    if(root==nullptr){
+void BinaryTree::print()
+{
+    print(root);
+}
+
+void BinaryTree::print(Node* root)
+{
+    if (root == nullptr)
+    {
         return;
     }
-    cout<<root->data<<"  ";
+    cout << root->data << "  ";
     print(root->left);
     print(root->right);
 }
 
+void BinaryTree::deleteNode(int key)
+{
+    root = deleteNode(root, key);
+}
 
-int countnodes(Node *root){
-    if(root==nullptr){
+Node* BinaryTree::deleteNode(Node* root, int key)
+{
+    if (root == nullptr)
+    {
+        return root;
+    }
+    if (key < root->data)
+    {
+        root->left = deleteNode(root->left, key);
+    }
+    else if (key > root->data)
+    {
+        root->right = deleteNode(root->right, key);
+    }
+    else
+    {
+        if (root->left == nullptr)
+        {
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        }
+        else if (root->right == nullptr)
+        {
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        }
+        Node* temp = findMin(root->right);
+        root->data = temp->data;
+        root->right = deleteNode(root->right, temp->data);
+    }
+    return root;
+}
+
+Node* BinaryTree::findMin(Node* root)
+{
+    while (root->left != nullptr)
+    {
+        root = root->left;
+    }
+    return root;
+}
+
+int BinaryTree::countNodes(Node* root)
+{
+    if (root == nullptr)
+    {
         return 0;
-    }else{
-        return countnodes(root->left)+countnodes(root->right)+1;
+    }
+    else
+    {
+        return countNodes(root->left) + countNodes(root->right) + 1;
     }
 }
 
-int Node::lengthis(Node *root){
-    return countnodes(root);
+int BinaryTree::lengthis()
+{
+    return countNodes(root);
+}
+
+void BinaryTree::makeEmpty(Node* &root)
+{
+    if (root != nullptr)
+    {
+        makeEmpty(root->left);
+        makeEmpty(root->right);
+        delete root;
+        root = nullptr;
+    }
 }
