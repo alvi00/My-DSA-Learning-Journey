@@ -10,7 +10,7 @@ void merge(int arr[], int low, int mid, int high) {
     int i = 0;
 
     while (left <= mid && right <= high) {
-        if (arr[left] < arr[right]) {
+        if (arr[left] <= arr[right]) {
             temp[i++] = arr[left++];
         } else {
             temp[i++] = arr[right++];
@@ -28,8 +28,8 @@ void merge(int arr[], int low, int mid, int high) {
     }
 
     // Copy sorted elements back to original array
-    for (int j = 0; j < size; j++) {
-        arr[low + j] = temp[j];
+    for (int j = low; j <= high; j++) {
+        arr[j] = temp[j-low];
     }
 }
 
